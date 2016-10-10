@@ -1,6 +1,9 @@
 package Calc;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 /**
@@ -11,13 +14,17 @@ public class Calculator {
 
     public static ArrayList<String> list = new ArrayList<>();
 
-    public static void calc() {
+    public static void calc() throws IOException{
+        String fileName = "history.txt";
+        PrintWriter outFile = new PrintWriter(new FileWriter(fileName));
         while (true) {
             System.out.println("Please choose an option: " + "\n" +
                                "1. Calculator" + "\n" +
                                "2. Tip Calculator" + "\n" +
                                "3. Help" + "\n" +
-                               "4. Quit");
+                               "4. Clear History" + "\n" +
+                               "5. Calculate Grocery Tax" + "\n" +
+                               "6. Quit");
             Scanner o = new Scanner(System.in);
             String options = o.nextLine();
             if (options.toLowerCase().equals("1")) {
@@ -36,34 +43,29 @@ public class Calculator {
                     sum = Math.round((response1 + response3) * 100.00) / 100.00;
                     list.add(response1 + " + " + response3 + " = " + sum);
                     System.out.println("The sum of " + response1 + " and " + response3 + " is " + sum);
-                    System.out.println("Previous Calculations: " + list);
+                    System.out.println("Calculation History: " + list);
                 } else if (response2.equals("-")) {
                     double difference;
                     difference = Math.round((response1 - response3) * 100.00) / 100.00;
                     list.add(response1 + " - " + response3 + " = " + difference);
                     System.out.println("The difference of " + response1 + " and " + response3 + " is " + difference);
-                    System.out.println("Previous Calculations: " + list);
+                    System.out.println("Calculation History: " + list);
                 } else if (response2.equals("*")) {
                     double product;
                     product = Math.round((response1 * response3) * 100.00) / 100.00;
                     list.add(response1 + " * " + response3 + " = " + product);
                     System.out.println("The product of " + response1 + " and " + response3 + " is " + product);
-                    System.out.println("Previous Calculations: " + list);
+                    System.out.println("Calculation History: " + list);
                 } else if (response2.equals("/")) {
                     double quotient;
                     quotient = Math.round((response1 / response3) * 100.00) / 100.00;
                     list.add(response1 + " / " + response3 + " = " + quotient);
                     System.out.println("The quotient of " + response1 + " and " + response3 + " is " + quotient);
-                    System.out.println("Previous Calculations: " + list);
+                    System.out.println("Calculation History: " + list);
                 } else {
                     System.out.println("Please enter a proper value");
                 }
-                System.out.println("Would you like to calculate further?");
-                Scanner r4 = new Scanner(System.in);
-                String response4 = r4.nextLine();
-                if (response4.toLowerCase().equals("no") || response4.toLowerCase().equals("n")) {
-                    break;
-                }
+
             } else if (options.equals("2")) {
                 System.out.println("Please enter your bill amount");
                 Scanner b = new Scanner(System.in);
@@ -72,12 +74,27 @@ public class Calculator {
                 Scanner t = new Scanner(System.in);
                 double tip = t.nextDouble();
                 double tipCalc = Math.round(bill * tip * 100.00)/100.00;
+                list.add("Tip Calculation: " + bill + " * " + tip + " = " + Math.round(bill * tip * 100.00) / 100.00);
                 System.out.println("Your Tip Amount is: " + tipCalc + " and your total is: " + (bill + tipCalc));
-
+                System.out.println("Calculation History: " + list);
             } else if (options.equals("3")) {
-                System.out.println("A calculator is a valuable tool for calculating numerical Amounts. One can use a calculator for calculating two number's sum, such as 3 + 4, or maybe dividing two numbers, such as 4 / 2. One can use it to calculate the tip, by selecting the second option, or for any other numerical calculation one can imagine. Enjoy, and thank you for using Tressler Industries Technology!");
+                System.out.println("Calculator will allow you to calculate various totals, such as addition, subtraction, multiplication, or division. Tip Calculator will allow you to calculate the tip on your meal. Help is this nifty helper. Clear History will erase your calculations history, Grocery Calculator will calculate the sales tax for the state of Kentucky based on your grocery total, and Quit will exit the app and clear your history. Enjoy!");
             } else if (options.equals("4")) {
+                list.clear();
+
+            } else if (options.equals("5")) {
+                System.out.println("Please Enter your Grocery Item Total (Before Taxes)");
+                Scanner g = new Scanner(System.in);
+                double grocery = Math.round(g.nextDouble() * 100.00) /100.00;
+                double tax = Math.round(grocery * 0.06 * 100.00) / 100.00;
+                list.add("Grocery Tax: " + tax);
+                System.out.println("Your Tax Amount is: " + tax);
+                System.out.println("Calculation History: " + list);
+
+            } else if (options.equals("6")) {
                 System.out.println("Please Come Back!");
+                outFile.println(list);
+                outFile.close();
                 break;
             }
 
