@@ -85,8 +85,11 @@ public class Calculator {
             } else if (options.equals("5")) {
                 System.out.println("Please Enter your Grocery Item Total (Before Taxes)");
                 Scanner g = new Scanner(System.in);
+                Scanner s = new Scanner(System.in);
+                double state = s.nextDouble();
+                System.out.println("Please enter your state tax in decimal format (.06, not 6%)");
                 double grocery = Math.round(g.nextDouble() * 100.00) /100.00;
-                double tax = Math.round(grocery * 0.06 * 100.00) / 100.00;
+                double tax = Math.round(grocery * state * 100.00) / 100.00;
                 list.add("Grocery Tax: " + tax);
                 System.out.println("Your Tax Amount is: " + tax);
                 System.out.println("Calculation History: " + list);
