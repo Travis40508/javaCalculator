@@ -29,14 +29,11 @@ public class Calculator {
             String options = o.nextLine();
             if (options.toLowerCase().equals("1")) {
                 System.out.println("Please enter your first value");
-                Scanner r1 = new Scanner(System.in);
-                double response1 = r1.nextDouble();
+                double response1 = o.nextDouble();
                 System.out.println("Please enter your operator (+, -, *, or /)");
-                Scanner r2 = new Scanner(System.in);
-                String response2 = r2.next();
+                String response2 = o.next();
                 System.out.println("Please enter your second value");
-                Scanner r3 = new Scanner(System.in);
-                double response3 = r3.nextDouble();
+                double response3 = o.nextDouble();
 
                 if (response2.equals("+")) {
                     double sum;
@@ -71,8 +68,7 @@ public class Calculator {
                 Scanner b = new Scanner(System.in);
                 double bill = Math.round(b.nextDouble() * 100.00)/100.00;
                 System.out.println("Please enter a tip amount in decimal form (0.15 instead of 15%");
-                Scanner t = new Scanner(System.in);
-                double tip = t.nextDouble();
+                double tip = b.nextDouble();
                 double tipCalc = Math.round(bill * tip * 100.00)/100.00;
                 list.add("Tip Calculation: " + bill + " * " + tip + " = " + Math.round(bill * tip * 100.00) / 100.00);
                 System.out.println("Your Tip Amount is: " + tipCalc + " and your total is: " + (bill + tipCalc));
@@ -85,8 +81,7 @@ public class Calculator {
             } else if (options.equals("5")) {
                 System.out.println("Please Enter your Grocery Item Total (Before Taxes)");
                 Scanner g = new Scanner(System.in);
-                Scanner s = new Scanner(System.in);
-                double state = s.nextDouble();
+                double state = g.nextDouble();
                 System.out.println("Please enter your state tax in decimal format (.06, not 6%)");
                 double grocery = Math.round(g.nextDouble() * 100.00) /100.00;
                 double tax = Math.round(grocery * state * 100.00) / 100.00;
